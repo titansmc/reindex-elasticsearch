@@ -1,6 +1,7 @@
 import opensearchpy
 import urllib3
 import time
+from multiprocessing import Process
 import os
 
 from opensearchpy import OpenSearch, RequestsHttpConnection
@@ -78,9 +79,15 @@ for i in range(start_index, end_index + 1, batch_size):
 
 
     for index in batch_indices:
-        print(index)
+        globals()[index] = Process(target=full_reindex, args=(index,))
+        globals()[index].start()
+        print("one proces:", graylog_333)
         #time.sleep(60)
         #full_reindex(index)
+
+    globals()[batch_indices[1]].join()
+    globals()[batch_indices[2]].join()
+    globals()[batch_indices[3]].join()
 
 
 print("Reindexing completed.")
