@@ -39,12 +39,12 @@ def create_index_settings(es, index_name, primary_shards, replica_shards):
     es.indices.create(index=index_name, body=body, request_timeout=1000000000)
 
 def full_reindex(index):
-    count = es.count(index=batch_indices)['count']
+    count = es.count(index=index)['count']
     print(f"Document count in index {batch_indices}: {count}")
     
     temp_index = f"temp_{index}"
     print("Temp_index: ", temp_index)
-    time.sleep(60)
+    #time.sleep(60)
     # Update settings for the temporary index
     create_index_settings(es, temp_index, primary_shards=4, replica_shards=0)
 
