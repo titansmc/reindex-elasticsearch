@@ -81,14 +81,13 @@ for i in range(start_index, end_index + 1, batch_size):
     for index in batch_indices:
         globals()[index] = Process(target=full_reindex, args=(index,))
         globals()[index].start()
-        print("one proces:", graylog_333)
         #time.sleep(60)
         #full_reindex(index)
 
-    globals()[batch_indices[1]].join()
-    globals()[batch_indices[2]].join()
-    globals()[batch_indices[3]].join()
+    for i in range(1, batch_size+1, 1):
+        globals()[batch_indices[1]].join()
 
+    
 
 print("Reindexing completed.")
 
