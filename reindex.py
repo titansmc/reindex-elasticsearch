@@ -1,13 +1,19 @@
 import opensearchpy
 import urllib3
 import time
-from multiprocessing import Process
 import os
+from multiprocessing import Process
+from datetime import datetime
+
 
 from opensearchpy import OpenSearch, RequestsHttpConnection
 
 ES_USER = os.getenv('ES_USER')
 ES_PASS =  os.getenv('ES_PASS')
+start_index = os.getenv('START')
+end_index = os.getenv('END')
+batch_size = os.getenv('BATCH')
+
 # Elasticsearch connection
 es = OpenSearch(hosts=[{'host': 'opensearch-graylog.ktest.embl.de', 'port': 443}],
                    http_auth=(ES_USER, ES_PASS),
@@ -68,10 +74,9 @@ def full_reindex(index):
 
 
 
-# Loop over indices in batches
-start_index = 333
-end_index = 340
-batch_size = 3
+
+print("Reindexing starting.")
+print("Current Time:", datetime.now().time())
 
 for i in range(start_index, end_index + 1, batch_size):
     batch_indices = [f"graylog_{j}" for j in range(i, min(i + batch_size, end_index + 1))]
@@ -90,4 +95,4 @@ for i in range(start_index, end_index + 1, batch_size):
     
 
 print("Reindexing completed.")
-
+print("Current Time:", datetime.now().time())
