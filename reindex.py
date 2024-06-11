@@ -101,5 +101,5 @@ for i in range(start_index, end_index + 1, batch_size):
 print("Reindexing completed.")
 
 time_seconds_fin = int(time.time())
-total_time = time_seconds_fin - time_seconds_fin
+total_time = time_seconds_fin - time_seconds_beg
 print("Total time in seconds:", total_time)
