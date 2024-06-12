@@ -4,6 +4,11 @@ This script reindex the current indexes to a remporary index and back to the ori
 #Run it
 Run it like
 ```
-PYTHONWARNINGS="ignore:Unverified HTTPS request" START=333 END=340 BATCH=3 ES_USER=admin ES_PASS=xxxxxxxxxxxxxxxxxxxx python3.6 reindex.py
+ES_SERVER=opensearch-graylog.ktest.embl.de PYTHONWARNINGS="ignore:Unverified HTTPS request" START=333 END=340 BATCH=3 ES_USER=admin ES_PASS=xxxxxxxxxxxxxxxxxxxx python3.6 reindex.py
 ```
 The credentials should be in passbolt.
+
+For prod
+```
+ES_SERVER=eck-graylog.ops-kone.embl.de
+```

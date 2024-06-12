@@ -1,13 +1,16 @@
-import opensearchpy
+import elasticsearch
+from elasticsearch import Elasticsearch, RequestsHttpConnection
+#import opensearchpy
+#from opensearchpy import OpenSearch, RequestsHttpConnection
 import urllib3
 import time
 import os
 from multiprocessing import Process
 from datetime import datetime
-from opensearchpy import OpenSearch, RequestsHttpConnection
 
 ES_USER = os.getenv('ES_USER')
 ES_PASS =  os.getenv('ES_PASS')
+ES_SERVER = os.getenv('ES_SERVER')
 start_index = int(os.getenv('START'))
 end_index = int(os.getenv('END'))
 batch_size = int(os.getenv('BATCH'))
@@ -64,7 +67,7 @@ def full_reindex(index):
 
 
 # Elasticsearch connection
-es = OpenSearch(hosts=[{'host': 'opensearch-graylog.ktest.embl.de', 'port': 443}],
+es = Elasticsearch(hosts=[{'host': ES_SERVER, 'port': 443}],
                    http_auth=(ES_USER, ES_PASS),
                    use_ssl= 'true',
                    connection_class=RequestsHttpConnection,
